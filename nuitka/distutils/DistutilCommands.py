@@ -26,7 +26,6 @@ import subprocess
 import sys
 
 import wheel.bdist_wheel  # pylint: disable=I0021,import-error,no-name-in-module
-
 from nuitka.tools.testing.Common import my_print
 from nuitka.utils.FileOperations import copyTree, removeDirectory
 
@@ -189,16 +188,16 @@ class build(distutils.command.build.build):
             ]
 
             if type(to_build) is PyPackage:
-                command += [
+                command += (
                     "--include-package=%s" % package_name.replace("/", ".")
                     for package_name in to_build.related_packages
-                ]
+                )
 
             else:  # type(to_build) is PyModule
-                command += [
+                command += (
                     "--include-module=%s" % module_name
                     for module_name in to_build.related_modules
-                ]
+                )
 
             # Process any extra options from setuptools
             if "nuitka" in self.distribution.command_options:
